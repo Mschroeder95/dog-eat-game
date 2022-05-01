@@ -1,6 +1,6 @@
-import { Sprite, Texture } from "pixi.js";
+import { Sprite } from "pixi.js";
 import { Collider } from "../../collision/collider";
-import { assetLoader, Game, sampleRate } from "../../game";
+import { Game, sampleRate } from "../../game";
 import { Bone } from "./bone";
 import { Broccolie } from "./broccoli";
 

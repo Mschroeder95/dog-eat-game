@@ -29,7 +29,7 @@ export class Game {
                     this.pixiApp = new Application(options);
                     parentElement.appendChild(this.pixiApp.view);
 
-                    let dog = new Dog(0, (this.pixiApp?.view.height as number) - 256, 256, 256, 'dog');
+                    let dog = new Dog(0, (this.pixiApp?.view.height as number) - 256, 256, 256);
                     Game.configDogCollision(dog);
                     this.pixiApp?.stage.addChild(dog);
                     setInterval(() => {

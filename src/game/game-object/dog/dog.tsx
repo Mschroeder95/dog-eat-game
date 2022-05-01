@@ -1,4 +1,4 @@
-import { AnimatedSprite, Container, DisplayObject, Graphics, ObservablePoint, Resource, Sprite, Texture } from "pixi.js";
+import { AnimatedSprite, Container, Resource, Sprite, Texture } from "pixi.js";
 import { Collider } from "../../collision/collider";
 import { assetLoader } from "../../game";
 
@@ -8,7 +8,7 @@ export class Dog extends Container {
 
     staticSprite: Sprite;
     animatedSprite: AnimatedSprite
-    constructor(x: number, y: number, height: number, width: number, colliderTag: string) { 
+    constructor(x: number, y: number, height: number, width: number) { 
         super();
 
         this.position.y = y;
