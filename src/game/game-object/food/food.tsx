@@ -1,16 +1,15 @@
 import { Sprite, Texture } from "pixi.js";
 import { Collider } from "../../collision/collider";
 import { assetLoader, Game, sampleRate } from "../../game";
+import { Bone } from "./bone";
+import { Broccolie } from "./broccoli";
 
-enum FoodType {
-    BONE,
-    BROCCOLI
-}
-export class Food extends Sprite {
+
+export abstract class Food extends Sprite {
     fall: NodeJS.Timer | undefined;
-    hitBox: Collider;
+    hitBox!: Collider;
 
-    constructor(foodType: FoodType, x: number, y: number, private speed: number, rotation: number) {
+    constructor(x: number, y: number, private speed: number, rotation: number) {
         super();
 
         this.position.x = x;
@@ -18,48 +17,37 @@ export class Food extends Sprite {
         this.width = 128;
         this.height = 128;
         this.pivot.set(this.texture.width/2,this.texture.width/2);
-        this.rotation = rotation
-
-        if(foodType == FoodType.BONE) {
-            this.texture = assetLoader.resources.bone.texture as Texture
-            this.hitBox = new Collider('bone-hit-box')
-        } else {
-            this.texture = assetLoader.resources.broccoli.texture as Texture
-            this.hitBox = new Collider('broccoli-hit-box')
-        }   
-        //this.hitBox.beginFill(0x03fc0f); // uncomment for hitbox color
-        this.hitBox.drawRect((this.texture.width/2) - 32, (this.texture.width/2) -32, 64, 64)
-        this.addChild(this.hitBox)
+        this.rotation = rotation;
     }
 
     doDestroy() {
-        clearInterval(this.fall as NodeJS.Timer)
+        clearInterval(this.fall as NodeJS.Timer);
         this.hitBox.destroy();
-        this.destroy()
+        this.destroy();
     }
 
     doFall() {
         this.fall = setInterval(()=> {
             this.position.y += this.speed;
             if(this.position.y > Game.height) {
-                this.doDestroy()
+                this.doDestroy();
             }
-        }, sampleRate)
+        }, sampleRate);
     }
 
     static createRandom(): Food {
         
-        let randomX = Math.floor(Math.random() * (Game.width - 128)) + 64
-        let randomSpeed = Math.floor(Math.random() * 3 + 1)
-        let randomRotation = Math.random() * 2
-        let foodType: FoodType
-
+        let randomX = Math.floor(Math.random() * (Game.width - 128)) + 64;
+        let randomSpeed = Math.floor(Math.random() * 3 + 1);
+        let randomRotation = Math.random() * 2;
+        
+        let food: Food;
         if(Math.random() > .5) {
-            foodType = FoodType.BROCCOLI;
+            food = new Bone(randomX, -128, randomSpeed, randomRotation);
         } else {
-            foodType = FoodType.BONE;
+            food = new Broccolie(randomX, -128, randomSpeed, randomRotation);
         }
 
-        return new Food(foodType, randomX, -128, randomSpeed, randomRotation)
+        return food;
     }
 }
