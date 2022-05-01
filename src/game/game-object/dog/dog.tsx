@@ -1,4 +1,4 @@
-import { AnimatedSprite, Container, DisplayObject, Graphics, ObservablePoint, Sprite, Texture } from "pixi.js";
+import { AnimatedSprite, Container, DisplayObject, Graphics, ObservablePoint, Resource, Sprite, Texture } from "pixi.js";
 import { Collider } from "../../collision/collider";
 import { assetLoader } from "../../game";
 
@@ -13,13 +13,18 @@ export class Dog extends Container {
 
         this.position.y = y;
         this.position.x = x;
-
-        this.staticSprite = assetLoader.sprites.dog.static
+        this.staticSprite = new Sprite(assetLoader.resources.dogStatic.texture)
         this.staticSprite.width = width;
         this.staticSprite.height = height
         this.addChild(this.staticSprite);
 
-        this.animatedSprite = assetLoader.sprites.dog.eating
+        this.animatedSprite = new AnimatedSprite([
+            assetLoader.resources.dogEating0.texture as Texture<Resource>,
+            assetLoader.resources.dogEating1.texture as Texture<Resource>,
+            assetLoader.resources.dogEating2.texture as Texture<Resource>,
+            assetLoader.resources.dogEating3.texture as Texture<Resource>,
+            assetLoader.resources.dogEating4.texture as Texture<Resource>,
+        ])
         this.animatedSprite.height = height;
         this.animatedSprite.width = width;
         this.animatedSprite.animationSpeed = .6;

@@ -1,8 +1,9 @@
-import { AnimatedSprite, Loader, Resource, Sprite, Texture } from "pixi.js";
+import { Dict } from "@pixi/utils";
+import { Loader, LoaderResource } from "pixi.js";
 
 export class AssetLoader extends Loader {
-    sprites: any = {}
-    textures: any = {}
+    resources: Dict<LoaderResource> = {}
+
     constructor() {
         super();
         let public_dir = process.env.PUBLIC_URL;
@@ -20,21 +21,7 @@ export class AssetLoader extends Loader {
     loadAssets(): Promise<any> {
         let complete = new Promise((resolve, reject) => {
             this.load((loader, resources) => {
-
-                this.sprites.dog = {}
-                this.sprites.dog.static = new Sprite(resources.dogStatic.texture)
-                this.sprites.dog.eating = new AnimatedSprite([
-                    resources.dogEating0.texture as Texture<Resource>,
-                    resources.dogEating1.texture as Texture<Resource>,
-                    resources.dogEating2.texture as Texture<Resource>,
-                    resources.dogEating3.texture as Texture<Resource>,
-                    resources.dogEating4.texture as Texture<Resource>,
-                ])
-                
-                this.textures.food = {}
-                this.textures.food.broccoliTexture = resources.broccoli.texture
-                this.textures.food.boneTexture = resources.bone.texture
-
+                this.resources = resources;
                 resolve(1)
             })
         })

@@ -1,4 +1,4 @@
-import { Sprite } from "pixi.js";
+import { Sprite, Texture } from "pixi.js";
 import { Collider } from "../../collision/collider";
 import { assetLoader, Game, sampleRate } from "../../game";
 
@@ -21,10 +21,10 @@ export class Food extends Sprite {
         this.rotation = rotation
 
         if(foodType == FoodType.BONE) {
-            this.texture = assetLoader.textures.food.boneTexture;
+            this.texture = assetLoader.resources.bone.texture as Texture
             this.hitBox = new Collider('bone-hit-box')
         } else {
-            this.texture = assetLoader.textures.food.broccoliTexture;
+            this.texture = assetLoader.resources.broccoli.texture as Texture
             this.hitBox = new Collider('broccoli-hit-box')
         }   
         //this.hitBox.beginFill(0x03fc0f); // uncomment for hitbox color
