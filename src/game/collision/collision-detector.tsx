@@ -1,11 +1,11 @@
 import { Rectangle } from "pixi.js";
 import { sampleRate } from "../game";
-import { ICollider } from "./i-collider";
+import { Collider } from "./collider";
 
 export class CollisionDetector {
     private static running = false;
     private static nextKey = 0;
-    static colliders: Map<number, ICollider> = new Map();
+    static colliders: Map<number, Collider> = new Map();
     
     private static detect() {
         let callback = () => {
@@ -26,7 +26,7 @@ export class CollisionDetector {
             allColliders.forEach((collider, key) => {
                 let c = Array.from(allColliders.keys()).slice(slice)
                 c.forEach((otherKey)=> {
-                    let otherCollider = allColliders.get(otherKey) as ICollider
+                    let otherCollider = allColliders.get(otherKey) as Collider
                     try {
                         if(collider.destroyed) {
                             allColliders.delete(key)
@@ -59,7 +59,7 @@ export class CollisionDetector {
         return a.x + a.width > b.x && a.x < b.x + b.width && a.y + a.height > b.y && a.y < b.y + b.height;
     }
 
-    static addCollider(collider: ICollider) {
+    static addCollider(collider: Collider) {
         if(!this.running) {
             this.running = true;
             CollisionDetector.detect();

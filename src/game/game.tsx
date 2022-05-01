@@ -1,6 +1,6 @@
 import { Application, IApplicationOptions } from "pixi.js";
 import { AssetLoader } from "./asset-loader";
-import { ColliderState } from "./collision/i-collider";
+import { ColliderState } from "./collision/collider";
 import { Dog } from "./game-object/dog/dog";
 import { Food } from "./game-object/food/food";
 
