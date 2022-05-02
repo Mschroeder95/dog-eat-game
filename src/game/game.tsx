@@ -2,6 +2,8 @@ import { Application, IApplicationOptions } from "pixi.js";
 import { AssetLoader } from "./asset-loader";
 import { ColliderState } from "./collision/collider";
 import { Dog } from "./game-object/dog/dog";
+import { Bone } from "./game-object/food/bone";
+import { Broccoli } from "./game-object/food/broccoli";
 import { Food } from "./game-object/food/food";
 
 export const assetLoader = new AssetLoader();
@@ -33,13 +35,29 @@ export class Game {
                     Game.configDogCollision(dog);
                     this.pixiApp?.stage.addChild(dog);
                     setInterval(() => {
-                        let food = Food.createRandom();
+                        let food = Game.createRandom();
                         this.pixiApp?.stage.addChild(food);
                         this.configFoodCollision(food);
                         food.doFall();
                     }, 1000);
                 })
         }
+    }
+
+    static createRandom(): Food {
+        
+        let randomX = Math.floor(Math.random() * (Game.width - 128)) + 64;
+        let randomSpeed = Math.floor(Math.random() * 3 + 1);
+        let randomRotation = Math.random() * 2;
+        
+        let food: Food;
+        if(Math.random() > .5) {
+            food = new Bone(randomX, -128, randomSpeed, randomRotation);
+        } else {
+            food = new Broccoli(randomX, -128, randomSpeed, randomRotation);
+        }
+
+        return food;
     }
 
     private static configFoodCollision(food:Food) {

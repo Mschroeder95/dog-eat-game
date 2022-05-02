@@ -3,7 +3,7 @@ import { Collider } from "../../collision/collider";
 import { assetLoader } from "../../game";
 import { Food } from "./food";
 
-export class Broccolie extends Food {
+export class Broccoli extends Food {
     
     constructor(x: number, y: number, speed: number, rotation: number) {
         super(x, y, speed, rotation);
